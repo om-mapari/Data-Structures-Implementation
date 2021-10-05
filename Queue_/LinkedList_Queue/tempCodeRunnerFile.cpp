@@ -1,0 +1,1 @@
+cout<<"the list is ";
