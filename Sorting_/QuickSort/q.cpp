@@ -1,61 +1,37 @@
-// Quick sort in C++  
 #include <iostream>
 using namespace std;
-
-void swap(int *a, int *b) 
+#include <bits/stdc++.h>
+int part(int arr[],int s,int e)
 {
-  int t = *a;
-  *a = *b;
-  *b = t;
-}
-
-// Function to partition the array on the basis of pivot element
-int partition(int array[], int start, int end) {
-  // Select the pivot element
-  int pivot = array[end];
-  int PIndex = start; //partition index
-  // Put the elements smaller than pivot on the left 
-  // and greater than pivot on the right of pivot
-
-  for (int i = start; i < end - 1; i++) 
-  {
-    if (array[i] <= pivot) 
+    int pivot = arr[e];
+    int pindex = s;
+    for(int i=s;i<e;i++)
     {
-      swap(&array[PIndex], &array[i]);
-      PIndex++;
+        if(arr[i]<pivot)
+        {
+            swap(arr[pindex++],arr[i]);
+        }
     }
-  }
-  swap(&array[PIndex], &array[end]);
-  return PIndex;
-}
+    swap(arr[e],arr[pindex]);
 
-void quickSort(int array[], int start, int end) 
+    return pindex;
+}
+void Q(int arr[],int s,int e)
 {
-  if (start < end) {
-    // Select pivot position and put all the elements smaller 
-    // than pivot on left and greater than pivot on right
-    int pi = partition(array, start, end);
-
-    // Sort the elements on the left of pivot
-    quickSort(array, start, pi - 1);
-
-    // Sort the elements on the right of pivot
-    quickSort(array, pi + 1, end);
-  }
+    if(s<e) {
+        int p = part(arr,s,e);
+        Q(arr,s,p-1);
+        Q(arr,p+1,e);
+    }
 }
-// Function to print eklements of an array
-void printArray(int array[], int size) 
+int main()
 {
-  int i;
-  for (i = 0; i < size; i++)
-    cout << array[i] << " ";
-  cout << endl;
-}
-int main() {
-  int data[] = {8, 7, 6, 1, 0, 9, 2};
-  int n = sizeof(data) / sizeof(data[0]);
-  
-  quickSort(data, 0, n - 1);
-  cout << "Sorted array in ascending order: \n";
-  printArray(data, n);
+
+    int arr[6] = {4,2,8,1,7,9};
+    Q(arr,0,5);
+    for(int i =0;i<6;i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+    return 0;
 }
